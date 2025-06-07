@@ -1,8 +1,8 @@
 import { initializeApp } from 'firebase/app';
-import { getAuth, GoogleAuthProvider,signInWithRedirect, signInWithPopup,createUserWithEmailAndPassword,signInWithEmailAndPassword} from 'firebase/auth';
+import { getAuth, GoogleAuthProvider, signInWithRedirect, signInWithPopup, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut,onAuthStateChanged } from 'firebase/auth';
 import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore';
 
- const firebaseConfig = {
+const firebaseConfig = {
 
     apiKey: "AIzaSyB1GaoYpLyiCkz39Bcrm-xzNz020-tdoaw",
     authDomain: "crwn-clothing-db-5b80d.firebaseapp.com",
@@ -17,7 +17,7 @@ export const firebaseApp = initializeApp(firebaseConfig);
 
 
 //Set up the authentication
- const googleProvider = new GoogleAuthProvider();
+const googleProvider = new GoogleAuthProvider();
 // Obliga a seleccionar una cuenta de Google 
 googleProvider.setCustomParameters({
     prompt: 'select_account',
@@ -30,16 +30,16 @@ export const signInWithGoogleRedirect = () => signInWithRedirect(auth, googlePro
 
 export const db = getFirestore();
 
-export const createUserDocumentFromAuth = async (userAuth,additionalInformation) => {
-   
-   if(!userAuth) return;
+export const createUserDocumentFromAuth = async (userAuth, additionalInformation) => {
+
+    if (!userAuth) return;
 
     const userDocRef = doc(db, 'users', userAuth.uid);
-   
+
     const userSnapshot = await getDoc(userDocRef);
 
     //If user data does not exist, create /set the document with the data from userAuth in my collection
-    if(!userSnapshot.exists()) {
+    if (!userSnapshot.exists()) {
         const { displayName, email } = userAuth;
         const createdAt = new Date();
 
@@ -77,4 +77,8 @@ export const signInAuthUserWithEmailAndPassword = async (email, password) => {
 
 }
 
+export const signOutUser = async () => await signOut(auth);
 
+
+// Observer listeners for authentication state changes
+export const onAuthStateChangedListener = (callback) => onAuthStateChanged(auth, callback);
