@@ -80,5 +80,11 @@ export const signInAuthUserWithEmailAndPassword = async (email, password) => {
 export const signOutUser = async () => await signOut(auth);
 
 
-// Observer listeners for authentication state changes
+// Observer listeners for authentication state changes. create a listener that will be called whenever the authentication state changes (e.g., user signs in or out).
 export const onAuthStateChangedListener = (callback) => onAuthStateChanged(auth, callback);
+
+// {
+// next:callback
+//error:errorCallback,
+// complete:completedCallback
+// }
