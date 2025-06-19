@@ -3,11 +3,15 @@ import ReactDOM from 'react-dom/client';
 
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
+import {Provider} from 'react-redux';
 
 import App from './App';
 import { UserProvider } from './contexts/user.context';
 import { CategoriesProvider } from './contexts/categories.context';
 import { CartProvider } from './contexts/cart.context';
+import {store} from './store/store'; // Asegúrate de que la ruta al store es correcta
+
+
 import './index.scss';
 
 
@@ -15,16 +19,18 @@ import './index.scss';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
+    <Provider store={store}>
     {/* Para las rutas se utiliza:  */}
     <BrowserRouter>
       <UserProvider>
         <CategoriesProvider>
           <CartProvider>
-          <App />
+            <App />
           </CartProvider>
         </CategoriesProvider>
       </UserProvider>
     </BrowserRouter>
+    </Provider>
   </React.StrictMode>
 );
 
