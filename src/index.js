@@ -6,7 +6,6 @@ import { BrowserRouter } from 'react-router-dom';
 import {Provider} from 'react-redux';
 
 import App from './App';
-import { UserProvider } from './contexts/user.context';
 import { CategoriesProvider } from './contexts/categories.context';
 import { CartProvider } from './contexts/cart.context';
 import {store} from './store/store'; // Asegúrate de que la ruta al store es correcta
@@ -20,15 +19,13 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-    {/* Para las rutas se utiliza:  */}
     <BrowserRouter>
-      <UserProvider>
+     
         <CategoriesProvider>
           <CartProvider>
             <App />
           </CartProvider>
         </CategoriesProvider>
-      </UserProvider>
     </BrowserRouter>
     </Provider>
   </React.StrictMode>
