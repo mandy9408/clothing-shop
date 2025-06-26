@@ -8,11 +8,13 @@ import { selectCategoriesMap } from '../../store/categories/category.selector';
 import { CategoryContainer, Title } from './category.style';
 
 const Category = () => {
+    //takes the category name from the URL parameter and then it 
+    //pulls off the categories map from our new selector that will transform the categories array.
     const { category } = useParams();
-    const  categoriesMap  = useSelector(selectCategoriesMap);
-
+    const categoriesMap = useSelector(selectCategoriesMap);
     const [products, setProducts] = useState(categoriesMap[category]);
-
+    //will update the products inside that this category uses which will be an array depending on when the category itself changes in the URL parameter or when the
+    //category is map updates. 
     useEffect(() => {
         setProducts(categoriesMap[category]);
     }, [category, categoriesMap]);
